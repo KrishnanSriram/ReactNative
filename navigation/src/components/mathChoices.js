@@ -87,10 +87,10 @@ export class MathChoices extends Component {
                     <TouchableOpacity style= { styles.swipeButtonPrimary} onPress = { () => this.onPress2Stack('2',rowData) }>
                         <Text style={ styles.buttonText} >2</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style = { styles.swipeButtonSecondary } onPress = { () => this.onPress3Stack('3', rowData) }>
+                    <TouchableOpacity style = { styles.swipeButtonSecondary } onPress = { () => this.onPress('3', rowData) }>
                         <Text style={ styles.buttonText} >3</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style = { styles.swipeButtonTertiary } onPress = { () => this.onPress4Stack('4', rowData) }>
+                    <TouchableOpacity style = { styles.swipeButtonTertiary } onPress = { () => this.onPress('4', rowData) }>
                         <Text style={ styles.buttonText} >4</Text>
                     </TouchableOpacity>
                 </View>
@@ -112,8 +112,8 @@ export class MathChoices extends Component {
             <View style={ styles.sectionHeader }>
                 <Text style={ styles.sectionHeaderText }>{category}</Text>
             </View>
-        )
-}
+        );
+    }
 
     render() {
         return (
@@ -141,15 +141,20 @@ export class MathChoices extends Component {
     onPress2Stack(stack, rowData) {
         console.log('2 Stack pressed');
         console.log(rowData);
+        this.props.navigator.push({name:'arithmeticHome', operation:rowData.category, stack:stack, digits: rowData.name});
     }
-
-    onPress3Stack(stack, rowData) {
-        console.log('3 Stack pressed');
-    }
-
-    onPress4Stack(stack, rowData) {
-        console.log('4 Stack pressed');
-    }
+    //
+    // onPress3Stack(stack, rowData) {
+    //     console.log('3 Stack pressed');
+    //     console.log('NAVIGATOR');
+    //     console.log(this.props.navigator);
+    // }
+    //
+    // onPress4Stack(stack, rowData) {
+    //     console.log('4 Stack pressed');
+    //     console.log('NAVIGATOR');
+    //     console.log(this.props.navigator);
+    // }
 
     onPress(rowId, sectionId) {
         console.log('Tableview cell tapped: ' + rowId + ' section: ' + sectionId);
@@ -159,7 +164,9 @@ export class MathChoices extends Component {
     }
 
     gotoRoute(name, rowId) {
+        console.log(this.props.navigator);
         if (this.props.navigator && this.props.navigator.getCurrentRoutes()[this.props.navigator.getCurrentRoutes().length-1].name != name) {
+            console.log('Push to this new view');
             this.props.navigator.push({name: name});
         }
     }

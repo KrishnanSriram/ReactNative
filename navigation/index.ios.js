@@ -20,6 +20,7 @@ var Register = require('./src/components/register');
 var Login = require('./src/components/login');
 var MathTable = require('./src/components/mathTables');
 var MathChoices = require('./src/components/mathChoices');
+import ArithmeticHome from './src/components/arithmeticHome';
 
 export default class navigation extends Component {
     render() {
@@ -45,6 +46,7 @@ export default class navigation extends Component {
 
     barTitleFor(route) {
         var barTitle = '';
+        console.log('Bar title for : ' + route.name);
         if(route.name === 'main') {
             barTitle = 'MAIN';
         } else if (route.name === 'register') {
@@ -55,6 +57,8 @@ export default class navigation extends Component {
             barTitle = 'Math tables';
         } else if(route.name === 'mathChoices') {
             barTitle = 'Pick up a choice';
+        } else if(route.name === 'arithmeticHome') {
+            barTitle = 'Arithmetics Home';
         }
 
         return barTitle;
@@ -96,7 +100,7 @@ export default class navigation extends Component {
     }
 
     renderScene(route, navigator) {1
-        console.log('Navigator object: ' + navigator);
+        console.log('Navigator object: ' + navigator + ' for route: ' + route.name);
         if(route.name === 'main') {
             return (<Main navigator={ navigator }></Main>);
         } else if(route.name === 'login') {
@@ -107,6 +111,12 @@ export default class navigation extends Component {
             return (<MathTable navigator={ navigator } table={ route.table }></MathTable>);
         } else if(route.name === 'mathChoices') {
             return (<MathChoices navigator={ navigator } ></MathChoices>);
+        } else if(route.name === 'arithmeticHome') {
+            return (<ArithmeticHome navigator= {navigator}
+                                    operation={ route.operation }
+                                    stack = { route.stack }
+                                    digits = { route.digits }
+                                    count = '20'> </ArithmeticHome>)
         }
 
     }
